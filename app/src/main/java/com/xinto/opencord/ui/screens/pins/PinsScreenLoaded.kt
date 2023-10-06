@@ -21,7 +21,6 @@ import com.xinto.opencord.domain.message.DomainMessage
 import com.xinto.opencord.domain.message.DomainMessageRegular
 import com.xinto.opencord.ui.components.OCImage
 import com.xinto.opencord.ui.components.OCSize
-import com.xinto.opencord.ui.components.attachment.AttachmentPicture
 import com.xinto.opencord.ui.components.attachment.AttachmentVideo
 import com.xinto.opencord.ui.components.embed.*
 import com.xinto.opencord.ui.components.message.MessageAuthor
@@ -150,19 +149,7 @@ fun PinsScreenLoaded(
                                             },
                                             media = if (!message.isTwitterMultiImageMessage) {
                                                 embed.image.ifNotNullComposable {
-                                                    AttachmentPicture(
-                                                        url = it.sizedUrl,
-                                                        width = it.width ?: 500,
-                                                        height = it.height ?: 500,
-                                                        modifier = Modifier
-                                                            .heightIn(max = 400.dp),
-                                                    )
                                                 } ?: embed.video.ifNotNullComposable {
-                                                    EmbedVideo(
-                                                        video = it,
-                                                        videoPublicUrl = embed.url,
-                                                        thumbnail = embed.thumbnail,
-                                                    )
                                                 }
                                             } else {
                                                 {
@@ -191,13 +178,6 @@ fun PinsScreenLoaded(
                                                 }
                                             },
                                             thumbnail = embed.thumbnail.ifNotNullComposable {
-                                                AttachmentPicture(
-                                                    url = it.sizedUrl,
-                                                    width = it.width ?: 256,
-                                                    height = it.height ?: 256,
-                                                    modifier = Modifier
-                                                        .size(45.dp),
-                                                )
                                             },
                                             fields = embed.fields.ifNotNullComposable {
                                                 for (field in it) key(field) {
@@ -222,13 +202,6 @@ fun PinsScreenLoaded(
                                 for (attachment in attachments) key(attachment) {
                                     when (attachment) {
                                         is DomainPictureAttachment -> {
-                                            AttachmentPicture(
-                                                modifier = Modifier
-                                                    .heightIn(max = 250.dp),
-                                                url = attachment.proxyUrl,
-                                                width = attachment.width,
-                                                height = attachment.height,
-                                            )
                                         }
                                         is DomainVideoAttachment -> {
                                             AttachmentVideo(url = attachment.url)

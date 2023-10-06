@@ -157,19 +157,7 @@ fun ChatLoaded(
                                         },
                                         media = if (!message.isTwitterMultiImageMessage) {
                                             embed.image.ifNotNullComposable {
-                                                AttachmentPicture(
-                                                    url = it.sizedUrl,
-                                                    width = it.width ?: 500,
-                                                    height = it.height ?: 500,
-                                                    modifier = Modifier
-                                                        .heightIn(max = 400.dp),
-                                                )
                                             } ?: embed.video.ifNotNullComposable {
-                                                EmbedVideo(
-                                                    video = it,
-                                                    videoPublicUrl = embed.url,
-                                                    thumbnail = embed.thumbnail,
-                                                )
                                             }
                                         } else {
                                             {
@@ -198,13 +186,6 @@ fun ChatLoaded(
                                             }
                                         },
                                         thumbnail = embed.thumbnail.ifNotNullComposable {
-                                            AttachmentPicture(
-                                                url = it.sizedUrl,
-                                                width = it.width ?: 256,
-                                                height = it.height ?: 256,
-                                                modifier = Modifier
-                                                    .size(45.dp),
-                                            )
                                         },
                                         fields = embed.fields.ifNotNullComposable {
                                             for (field in it) key(field) {
@@ -229,13 +210,6 @@ fun ChatLoaded(
                             for (attachment in attachments) key(attachment) {
                                 when (attachment) {
                                     is DomainPictureAttachment -> {
-                                        AttachmentPicture(
-                                            modifier = Modifier
-                                                .heightIn(max = 400.dp),
-                                            url = attachment.proxyUrl,
-                                            width = attachment.width,
-                                            height = attachment.height,
-                                        )
                                     }
                                     is DomainVideoAttachment -> {
                                         AttachmentVideo(
