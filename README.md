@@ -16,6 +16,7 @@
   <br/>
   <p align="center">
     An open-source Material You implementation of the Discord Android app. (WIP)
+    I created this fork in order to remove pictures to help lessen the distraction that discord can have for me.
   </p>
 </p>
 
