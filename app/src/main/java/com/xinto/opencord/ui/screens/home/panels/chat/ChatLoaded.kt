@@ -129,13 +129,7 @@ fun ChatLoaded(
                                 if (embed.isVideoOnlyEmbed) {
                                     val video = embed.video!!
                                     AttachmentVideo(
-                                        url = video.proxyUrl!!,
-                                        modifier = Modifier
-                                            .heightIn(max = 400.dp)
-                                            .aspectRatio(
-                                                ratio = video.aspectRatio,
-                                                matchHeightConstraintsFirst = true,
-                                            ),
+                                        url = video.proxyUrl!!
                                     )
                                 } else if (embed.isSpotifyEmbed) {
                                     SpotifyEmbed(
@@ -157,7 +151,9 @@ fun ChatLoaded(
                                         },
                                         media = if (!message.isTwitterMultiImageMessage) {
                                             embed.image.ifNotNullComposable {
+                                                AttachmentPicture(url = it.sizedUrl)
                                             } ?: embed.video.ifNotNullComposable {
+                                                AttachmentVideo(url = it.sizedUrl)
                                             }
                                         } else {
                                             {
@@ -210,13 +206,11 @@ fun ChatLoaded(
                             for (attachment in attachments) key(attachment) {
                                 when (attachment) {
                                     is DomainPictureAttachment -> {
+                                        AttachmentPicture(url = attachment.url)
                                     }
                                     is DomainVideoAttachment -> {
                                         AttachmentVideo(
-                                            url = attachment.url,
-                                            modifier = Modifier
-                                                .fillMaxWidth()
-                                                .aspectRatio(attachment.width.toFloat() / attachment.height.toFloat()),
+                                            url = attachment.url
                                         )
                                     }
                                     else -> {}

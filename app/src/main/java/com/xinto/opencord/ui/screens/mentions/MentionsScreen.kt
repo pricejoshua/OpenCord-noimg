@@ -32,6 +32,7 @@ import com.xinto.opencord.domain.message.DomainMessage
 import com.xinto.opencord.domain.message.DomainMessageRegular
 import com.xinto.opencord.ui.components.OCImage
 import com.xinto.opencord.ui.components.OCSize
+import com.xinto.opencord.ui.components.attachment.AttachmentPicture
 import com.xinto.opencord.ui.components.attachment.AttachmentVideo
 import com.xinto.opencord.ui.components.embed.*
 import com.xinto.opencord.ui.components.message.MessageAuthor
@@ -340,13 +341,7 @@ private fun MentionsPageMessage(
                             if (embed.isVideoOnlyEmbed) {
                                 val video = embed.video!!
                                 AttachmentVideo(
-                                    url = video.proxyUrl!!,
-                                    modifier = Modifier
-                                        .heightIn(max = 400.dp)
-                                        .aspectRatio(
-                                            ratio = video.aspectRatio,
-                                            matchHeightConstraintsFirst = true,
-                                        ),
+                                    url = video.proxyUrl!!
                                 )
                             } else if (embed.isSpotifyEmbed) {
                                 SpotifyEmbed(
@@ -397,6 +392,7 @@ private fun MentionsPageMessage(
                                         }
                                     },
                                     thumbnail = embed.thumbnail.ifNotNullComposable {
+                                        AttachmentPicture(url = it.sizedUrl)
                                     },
                                     fields = embed.fields.ifNotNullComposable {
                                         for (field in it) key(field) {
@@ -421,6 +417,7 @@ private fun MentionsPageMessage(
                         for (attachment in attachments) key(attachment) {
                             when (attachment) {
                                 is DomainPictureAttachment -> {
+                                    AttachmentPicture(url = attachment.url)
                                 }
                                 is DomainVideoAttachment -> {
                                     AttachmentVideo(url = attachment.url)

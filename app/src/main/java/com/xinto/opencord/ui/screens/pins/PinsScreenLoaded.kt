@@ -21,6 +21,7 @@ import com.xinto.opencord.domain.message.DomainMessage
 import com.xinto.opencord.domain.message.DomainMessageRegular
 import com.xinto.opencord.ui.components.OCImage
 import com.xinto.opencord.ui.components.OCSize
+import com.xinto.opencord.ui.components.attachment.AttachmentPicture
 import com.xinto.opencord.ui.components.attachment.AttachmentVideo
 import com.xinto.opencord.ui.components.embed.*
 import com.xinto.opencord.ui.components.message.MessageAuthor
@@ -122,12 +123,6 @@ fun PinsScreenLoaded(
                                         val video = embed.video!!
                                         AttachmentVideo(
                                             url = video.proxyUrl!!,
-                                            modifier = Modifier
-                                                .heightIn(max = 400.dp)
-                                                .aspectRatio(
-                                                    ratio = video.aspectRatio,
-                                                    matchHeightConstraintsFirst = true,
-                                                ),
                                         )
                                     } else if (embed.isSpotifyEmbed) {
                                         SpotifyEmbed(
@@ -202,6 +197,7 @@ fun PinsScreenLoaded(
                                 for (attachment in attachments) key(attachment) {
                                     when (attachment) {
                                         is DomainPictureAttachment -> {
+                                            AttachmentPicture(url = attachment.url)
                                         }
                                         is DomainVideoAttachment -> {
                                             AttachmentVideo(url = attachment.url)
